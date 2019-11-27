@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand navbar-light bg-warning" xmlns:th="http://www.thymeleaf.org "
+     th:fragment="header">
+    <a class="navbar-brand" th:href="@{/}">
+        <img th:src="@{/img/logoLock.png}" width="30" height="30" class="d-inline-block align-top" alt="">
+        LoginApp</a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" th:if="${#request.userPrincipal}" th:href="@{/users}">Users</a>
+        </li>
+    </ul>
+    <!-- <a href="#" class="btn btn-success mr-2">Account</a> -->
+    <div class="nav-item dropdown mr-2">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            Account
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <th:block th:if="!${#request.userPrincipal}">
+                <a class="dropdown-item" th:href="@{/login}">Sign In</a>
+                <a class="dropdown-item" th:href="@{/signup}">Sign Up</a>
+            </th:block>
+
+            <th:block th:if="${#request.userPrincipal}">
+                <a class="dropdown-item" th:href="@{/user/info}">Details</a>
+                <div class="dropdown-divider"></div>
+                <form th:action="@{/doLogout}" th:method="post">
+                    <input class="dropdown-item" type="submit" value="Logout">
+                </form>
+            </th:block>
+
+        </div>
+    </div>
+</nav>
